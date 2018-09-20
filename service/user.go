@@ -5,8 +5,6 @@ import (
 	"go-grpc-app/pb"
 	"context"
 	"log"
-	"fmt"
-	"strconv"
 )
 
 type UserService struct {
@@ -34,7 +32,7 @@ func (this *UserService) GetUsers(ctx context.Context, request *pb.UserRequest) 
 		log.Fatalln(err)
 		return nil, nil
 	}
-	var result []*pb.User
+	/*var result []*pb.User
 	for index, item := range users {
 		log.Println(index, item)
 		var user pb.User
@@ -46,7 +44,7 @@ func (this *UserService) GetUsers(ctx context.Context, request *pb.UserRequest) 
 		user.Email = string(item["email"].([]byte))
 		fmt.Println(user)
 		result = append(result, &user)
-	}
+	}*/
 
-	return &pb.UserResponse{Users: result}, err
+	return &pb.UserResponse{Users: users}, err
 }

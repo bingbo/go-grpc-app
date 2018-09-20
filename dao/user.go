@@ -8,6 +8,8 @@ import (
 	"log"
 	_ "github.com/go-sql-driver/mysql"
 	"fmt"
+	"go-grpc-app/model"
+	"go-grpc-app/pb"
 )
 
 //用户名
@@ -46,7 +48,7 @@ type UserDao struct {
 func NewUserDao() *UserDao {
 	return &UserDao{}
 }
-func (this *UserDao) GetUsers() ([]map[string]interface{}, error) {
+func (this *UserDao) GetUsersV3() ([]map[string]interface{}, error) {
 	rows, _ := dbs.Query("select * from user")
 	fmt.Println(rows)
 	defer rows.Close()
@@ -55,4 +57,23 @@ func (this *UserDao) GetUsers() ([]map[string]interface{}, error) {
 	res, err := scanner.ScanMap(rows)
 	fmt.Println(res)
 	return res, err
+}
+
+func (this *UserDao) GetUsersV2() ([]model.User, error) {
+	rows, _ := dbs.Query("select * from user")
+	fmt.Println(rows)
+	defer rows.Close()
+	var users []model.User
+	err := scanner.Scan(rows, &users)
+	//fmt.Println(err)
+	//res, err := scanner.ScanMap(rows)
+	//fmt.Println(res)
+	return users, err
+}
+
+func (this *UserDao) GetUsers() (res []*pb.User, err error) {
+	rows, _ := dbs.Query("select * from user")
+	defer rows.Close()
+	err = scanner.Scan(rows, &res)
+	return
 }

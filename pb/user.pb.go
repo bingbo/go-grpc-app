@@ -100,10 +100,10 @@ func (m *UserResponse) GetUsers() []*User {
 }
 
 type User struct {
-	Id                   int32    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	Email                string   `protobuf:"bytes,4,opt,name=email,proto3" json:"email,omitempty"`
+	Id                   int32    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" ddb:"id"`
+	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty" ddb:"name"`
+	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty" ddb:"password"`
+	Email                string   `protobuf:"bytes,4,opt,name=email,proto3" json:"email,omitempty" ddb:"email"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
